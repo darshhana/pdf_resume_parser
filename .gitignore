@@ -1,1 +1,26 @@
+# Environment variables
 .env
+
+# Dependencies
+node_modules/
+
+# Generated output files
+parsed_*.xlsx
+output/
+
+# Personal resumes (keep private)
+cv_*.pdf
+*_resume.pdf
+*_cv.pdf
+
+# Development/test files
+debug.js
+final.js
+test.js
+resume_parser.js
+
+# Test directory
+test/
+
+# Logs
+*.log

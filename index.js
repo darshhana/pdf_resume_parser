@@ -14,7 +14,7 @@ if (!fs.existsSync(outputFolder)) {
 
 //  Input file path (example: Resume01.pdf inside resumes folder)
 // const resumeFile = path.join(process.cwd(), "Resume01.pdf");
-const resumeFile = "E:\Parsing with API\Resume01.pdf"
+const resumeFile = path.join(process.cwd(), "Resume01.pdf")
 
 //  Output Excel file
 const outputFile = path.join(process.cwd(), "parsed_resume.xlsx");
@@ -25,15 +25,15 @@ async function extractDetailsFromResume(filePath) {
   const data = await pdfParse(dataBuffer);
   const text = data.text;
 
-  const nameMatch = text.match(/Name[:\-]?\s*([A-Za-z\s]+)/i);
+  const nameMatch = text.match(/(?:Name|Full Name|First Name|Last Name)[:\-]?\s*([A-Za-z\s\.]+)/i || text.match(/^([A-Za-z\s\.]+)$/m));
   const emailMatch = text.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}/i);
   const phoneMatch = text.match(/(\+?\d{1,3}[-.\s]?)?\d{10}/);
 
-  const skillsList = ["Python", "Java", "C++", "JavaScript", "HTML", "CSS", "SQL", "Node.js", "React"];
+  const skillsList = ["Python", "Java", "C++", "JavaScript", "HTML", "CSS", "SQL", "Node.js", "React", "AutoCAD", "SolidWorks", "Mechanical", "Engineering", "Design", "Manufacturing", "CNC", "CAD", "CAM", "Welding", "Machining"];
   const foundSkills = skillsList.filter(skill => text.toLowerCase().includes(skill.toLowerCase()));
 
   const educationMatch = text.match(/(B\.?Tech|M\.?Tech|B\.?Sc|M\.?Sc|Bachelor|Master|Diploma)[^,\n]*/i);
-  const experienceMatch = text.match(/(\d+)\s+(years?|yrs?)\s+of\s+experience/i);
+  const experienceMatch = text.match(/(\d+)\s+(years?|yrs?)\s+of\s+experience/i) || text.match(/(\d+)\s+(months?|months?)\s+experience/i) || text.match(/experience[:\-]?\s*(\d+)/i);
 
   return {
     Name: nameMatch ? nameMatch[1].trim() : "Not Found",

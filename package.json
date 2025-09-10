@@ -73,6 +73,8 @@
     "pako": "^1.0.11",
     "path-is-absolute": "^1.0.1",
     "pdf-parse": "^1.1.1",
+    "pdf2pic": "^3.2.0",
+    "pdfjs-dist": "^5.4.149",
     "process-nextick-args": "^2.0.1",
     "readable-stream": "^3.6.2",
     "readdir-glob": "^1.1.3",
